@@ -1,0 +1,62 @@
+#Select a base OS
+I have choosen Debian as the base OS.
+
+#Setup environment
+1. Install tools
+sudo apt update
+sudo apt install git live-build cdebootstrap squashfs-tools xorriso
+
+git: Version control system for fetching configuration files.
+live-build: Tool to build live images of Debian-based systems.
+cdebootstrap: Tool to bootstrap a basic Debian system into a directory.
+squashfs-tools: Tools to create and manipulate squashfs filesystems.
+xorriso: Command line ISO-9660 and Rock Ridge manipulation tool.
+
+2. Prepare structure for directory
+mkdir -p ~/custom-debian-iso/config/includes.chroot
+cd ~/custom-debian-iso
+
+3. Preinstall Applications
+GitHub Desktop:
+Download GitHub Desktop for Linux from the official GitHub repository.
+Extract the downloaded archive and place it in config/includes.chroot.
+Visual Studio Code (VSCode):
+
+Download the .deb package for Visual Studio Code from the official website.
+Install it using:
+
+sudo dpkg -i <downloaded-file>.deb
+sudo apt install -f
+Google Chrome:
+
+Download the .deb package for Google Chrome from the official website.
+Install it using:
+
+sudo dpkg -i <downloaded-file>.deb
+sudo apt install -f
+Zoom:
+
+Download the .deb package for Zoom from the official website.
+Install it using:
+
+sudo dpkg -i <downloaded-file>.deb
+sudo apt install -f
+
+4.ISO customization
+Configure Live System:
+Create a configuration file ~/custom-debian-iso/config/package-lists/my.list.chroot containing:
+
+github-desktop
+code
+google-chrome-stable
+zoom
+Customization Scripts:
+Optionally, create customization scripts in ~/custom-debian-iso/config/hooks/. These scripts can perform post-installation tasks or configurations.
+
+5.Building custom ISO
+Build Configuration:
+Create ~/custom-debian-iso/config/auto/config with:
+lb config --mode debian --distribution bullseye --archive-areas "main contrib non-free"
+
+Build the ISO
+sudo lb build
